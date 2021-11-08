@@ -1,10 +1,17 @@
-package com.teb.practice.restfuljpaservices.bean;
+package com.teb.practice.restfuljpaservices.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Book {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String bookId;
 
 	@NotNull
@@ -15,10 +22,13 @@ public class Book {
 	@Size(min = 10, max = 20, message = "Author name should be between 10 to 20 characters.")
 	private String bookAuthor;
 
-	/* For early versions of Spring-boot, add a manual no-argument constructor */
-	public Book(String bookId, String bookName, String bookAuthor) {
+	protected Book() {
 		super();
-		this.bookId = bookId;
+	}
+
+	/* For early versions of Spring-boot, add a manual no-argument constructor */
+	public Book(String bookName, String bookAuthor) {
+		super();
 		this.bookName = bookName;
 		this.bookAuthor = bookAuthor;
 	}
@@ -27,24 +37,12 @@ public class Book {
 		return bookId;
 	}
 
-	public void setBookId(String bookId) {
-		this.bookId = bookId;
-	}
-
 	public String getBookName() {
 		return bookName;
 	}
 
-	public void setBookName(String bookName) {
-		this.bookName = bookName;
-	}
-
 	public String getBookAuthor() {
 		return bookAuthor;
-	}
-
-	public void setBookAuthor(String bookAuthor) {
-		this.bookAuthor = bookAuthor;
 	}
 
 	@Override
